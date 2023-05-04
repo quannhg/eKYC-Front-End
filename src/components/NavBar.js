@@ -42,7 +42,7 @@ export function FunctionNavBar() {
                             />
 
                         </Navbar.Brand>
-                        <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF", fontSize: '17.92px' }}>HomePage</Nav.Link>
+                        <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF", fontSize: '17.92px' }}>Trang chủ</Nav.Link>
                     </Container>
                 </Navbar>
             </div>
