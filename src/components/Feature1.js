@@ -11,13 +11,14 @@ import {MdOutlineChangeCircle} from 'react-icons/md'
 import './Home.css';
 
 
-function UploadCard(text) {
+function UploadCard({ text, onFileChange }) {
     const [file, setFile] = useState(null);
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile.type.split('/')[0] === 'image' && selectedFile.size <= 2 * 1024 * 1024) {
             setFile(selectedFile);
+            onFileChange(selectedFile);
         } else if (selectedFile.size > 2 * 1024 * 1024) {
             window.alert('File size exceeds 2MB limit');
         } else if (selectedFile.type.split('/')[0] !== 'image') {
@@ -35,7 +36,7 @@ function UploadCard(text) {
 
     return (
         <Card style={{ width: '450px', height: '300px', alignItems: 'center' }}>
-            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>    
+            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 {(!file) && (
                     <Button variant="primary" onClick={handleUploadClick}>
                         {text}
@@ -54,16 +55,28 @@ function UploadCard(text) {
                             }}
                         />
 
-                        <MdOutlineChangeCircle style={{ fontSize: '30px', color: '#00ADC6'}} onClick ={handleUploadClick} />
+                        <MdOutlineChangeCircle style={{ fontSize: '30px', color: '#00ADC6' }} onClick={handleUploadClick} />
                     </div>
                 )}
             </Card.Body>
-        </Card >
+        </Card>
     );
 }
 
 
+
 function Feature1() {
+    const [file1, setFile1] = useState(null);
+    const [file2, setFile2] = useState(null);
+
+    const handleFile1Change = (file) => {
+        setFile1(file);
+    };
+
+    const handleFile2Change = (file) => {
+        setFile2(file);
+    };
+
     return (
         <div>
             <div>
@@ -77,14 +90,14 @@ function Feature1() {
                         </Row>
                         <Row>
                             <Col>
-                                {UploadCard('Tải lên ảnh kiểm tra')}
+                                <UploadCard text='Tải lên ảnh kiểm tra' onFileChange={handleFile1Change} />
                             </Col>
                             <Col>
-                                {UploadCard('Tải lên ảnh đối chiếu')}
+                                <UploadCard text='Tải lên ảnh đối chiếu' onFileChange={handleFile2Change} />
                             </Col>
                         </Row>
                         <Row>
-                            <ProcessButton />
+                            <ProcessButton file1 file2 />
                         </Row>
                     </Container>
                 </main>

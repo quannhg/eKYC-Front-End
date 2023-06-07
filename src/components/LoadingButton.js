@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
+import Result1 from './Result1';
 
-function LoadingButton() {
+function LoadingButton(image1, image2) {
   const [isLoading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     function simulateNetworkRequest() {
-      return new Promise((resolve) => setTimeout(resolve, 2000));
+      return new Promise((resolve) => setTimeout(resolve, 100));
     }
 
     if (isLoading) {
@@ -16,16 +19,41 @@ function LoadingButton() {
     }
   }, [isLoading]);
 
-  const handleClick = () => setLoading(true);
+  const handleClick = async () => {
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("image1", image1);
+    formData.append("image2", image2);
+
+
+    setShowModal(true);
+
+    // const response = await fetch("http://example.com/api", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // const data = await response.json();
+    // setResponse(data);
+    setLoading(false);
+  };
 
   return (
+    <>
     <Button
       variant="primary"
       disabled={isLoading}
       onClick={!isLoading ? handleClick : null}
     >
-      {isLoading ? "Đang xử lý…" : "Xử lý"}
+      {isLoading
+        ? "Đang xử lý…"
+        : response
+          ? `Kết quả: ${response}`
+          : "Xử lý"}
     </Button>
+      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} /> }
+    </>
   );
 }
 
