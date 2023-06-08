@@ -52,7 +52,7 @@ function LoadingButton(image1, image2) {
           ? `Kết quả: ${response}`
           : "Xử lý"}
     </Button>
-      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} /> }
+      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} image1={image1} image2={image2} /> }
     </>
   );
 }

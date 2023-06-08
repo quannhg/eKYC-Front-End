@@ -5,75 +5,73 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
+import { MdCheckCircleOutline } from 'react-icons/md'
+import { FaRegCommentDots } from 'react-icons/fa'
 import "./Result1.css"
 
-export default function Result1(props) {
+export default function Result1(props, image1, image2) {
     return (
         <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered >
             <Modal.Body className="show-grid">
                 <Container>
                     <Row>
-                        <Col md="9">
+                        <Col md="8">
                             <Row>
-                                <h3> Độ trùng khớp</h3>
+                                <h1 className="header"> Độ trùng khớp</h1>
                             </Row>
-                            <Row>
-                                <Col>
-                                    <Card style={{ width: '20rem' }}>
-                                        <Card.Title>Ảnh kiểm tra</Card.Title>
-                                        <Card.Img className="custom-card-image" variant="top" src="holder.js/100px180" />
-                                        <Card.Body>
-                                            <Card.Text>
-                                                100%
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
+                            <Row class="result-detail" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Col xs={4}>
+                                    <div class="ref-img-card">
+                                        <h4 >Ảnh kiểm tra</h4>
+                                        <Image className="image" alt="reference image" src={image1} />
+                                    </div>
                                 </Col>
-                                <Col>
-                                    <Card style={{ width: '10rem' }}>
-                                        <Card.Title>Ảnh kiểm tra</Card.Title>
-                                        <Card.Img variant="top" src="holder.js/100px180" />
-                                        <Card.Body>
-                                            <Card.Text>
-                                                100%
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
+                                <Col xs={4}>
+                                    <div class="query-img-card">
+                                        <Image className="image" alt="query image" src={image2} />
+                                        <h5 style={{ color: "#36B943" }}>100%</h5>
+                                    </div>
                                 </Col>
                             </Row>
 
                         </Col>
 
-                        <Col>
-
-                            <Card style={{ width: '10rem' }}>
-                                <Card.Body>
-                                    <Card.Title>Kết quả</Card.Title>
+                        <Col md="4">
+                            <div class="result-consult">
+                                <div class="result-consult-card">
+                                    <h4 class="sub-header">Kết quả</h4>
+                                    <MdCheckCircleOutline style={{ color: "#36B943", fontSize:"2em"}}/>
                                     <Card.Text>
                                         2 ảnh là cùng một người
                                     </Card.Text>
-                                </Card.Body>
-                            </Card>
 
-                            <Card style={{ width: '10rem' }}>
-                                <Card.Body>
-                                    <Card.Title>Nhận xét</Card.Title>
-                                </Card.Body>
-                                <Container>
-                                    <Col>
-                                        <Button> Đúng </Button>
-                                        <Button> Sai </Button>
-                                    </Col>
-                                </Container>
+                                </div>
 
-                            </Card>
+                                <div class="comment-card">
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <FaRegCommentDots style={{ marginRight: '5px' }} />
+                                        <h4 className="sub-header">Nhận xét</h4>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <Col>
+                                            <Button style={{ marginRight: '0.5em', width:"5rem"}}>Đúng</Button>
+                                            <Button style={{ marginLeft: '0.5em', width: "5rem" }}>Sai</Button>
+                                        </Col>
+                                    </div>
+
+                                </div>
+                            </div>
                         </Col>
+
+
+
 
                     </Row>
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={props.onHide}>Thoát</Button>
             </Modal.Footer>
         </Modal>
     );
