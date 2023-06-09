@@ -9,69 +9,78 @@ import Image from 'react-bootstrap/Image';
 import { MdCheckCircleOutline } from 'react-icons/md'
 import { FaRegCommentDots } from 'react-icons/fa'
 import "./Result1.css"
+import { ModalTitle } from 'react-bootstrap';
 
-export default function Result1(props, image1, image2) {
+export default function Result1(props) {
+
     return (
         <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered >
-            <Modal.Body className="show-grid">
+            <Modal.Body className="show-grid p-0">
                 <Container>
-                    <Row>
-                        <Col md="8">
-                            <Row>
-                                <h1 className="header"> Độ trùng khớp</h1>
+                    <Row >
+                        <Col className='d-flex flex-column align-items-center justify-content-center p-0' sm="12" md="8">
+                            <Row className="flex-grow-1 header border border-secondary w-100 rounded-start rounded-1">
+                                <Modal.Title className="d-flex justify-content-center align-items-center fs-2">Độ trùng khớp</Modal.Title>
                             </Row>
-                            <Row class="result-detail" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <Col xs={4}>
-                                    <div class="ref-img-card">
-                                        <h4 >Ảnh kiểm tra</h4>
-                                        <Image className="image" alt="reference image" src={image1} />
-                                    </div>
+                            <Row className="result-detail flex-grow-1 d-flex align-items-center justify-content-center">
+                                <Col xs='6'>
+                                    {
+                                        <Card >
+                                            <div class="ref-img-card">
+                                                <h4 >Ảnh kiểm tra</h4>
+                                                <Image className="image border border-secondary border-2 rounded-1 p-2 bg-white" alt="reference image" src={props.image1} />
+                                            </div>
+                                        </Card>
+                                    }
                                 </Col>
-                                <Col xs={4}>
-                                    <div class="query-img-card">
-                                        <Image className="image" alt="query image" src={image2} />
-                                        <h5 style={{ color: "#36B943" }}>100%</h5>
-                                    </div>
+                                <Col xs='6'>
+                                    <Card>
+                                        {
+                                            <Card>
+                                                <div class="query-img-card">
+                                                    <Image className="image border border-secondary border-2 rounded-1 p-2 my-3 bg-white" alt="reference image" src={props.image2} />
+                                                    <h5 style={{ color: "#36B943" }}>100%</h5>
+                                                </div>
+                                            </Card>
+                                        }
+                                    </Card>
                                 </Col>
                             </Row>
-
                         </Col>
 
-                        <Col md="4">
-                            <div class="result-consult">
-                                <div class="result-consult-card">
-                                    <h4 class="sub-header">Kết quả</h4>
-                                    <MdCheckCircleOutline style={{ color: "#36B943", fontSize:"2em"}}/>
-                                    <Card.Text>
+                        <Col className='p-0 border border-secondary rounded-1' sm="8" md="4">
+                            <div className="result-consult">
+                                <Card class="result-consult-card" className='border border-secondary border-1'>
+                                    <Card.Header className="border-0" style={{ backgroundColor: '#fff' }}>
+                                        <h4 class="sub-header">Kết quả</h4>
+                                    </Card.Header>
+                                    <MdCheckCircleOutline style={{ color: "#36B943", fontSize: "2em" }} />
+                                    <Card.Text className='m-3'>
                                         2 ảnh là cùng một người
                                     </Card.Text>
 
-                                </div>
+                                </Card>
 
-                                <div class="comment-card">
+                                <Card className='border border-secondary border-1 comment-card'>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <FaRegCommentDots style={{ marginRight: '5px' }} />
                                         <h4 className="sub-header">Nhận xét</h4>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <Col>
-                                            <Button style={{ marginRight: '0.5em', width:"5rem"}}>Đúng</Button>
-                                            <Button style={{ marginLeft: '0.5em', width: "5rem" }}>Sai</Button>
+                                            <Button style={{ marginRight: '0.5em', width: "5rem", backgroundColor: '#36B943', border: '0' }}>Đúng</Button>
+                                            <Button style={{ marginLeft: '0.5em', width: "5rem", backgroundColor: '#EC4700', border: '0' }}>Sai</Button>
                                         </Col>
                                     </div>
 
-                                </div>
+                                </Card>
                             </div>
                         </Col>
-
-
-
-
                     </Row>
                 </Container>
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Thoát</Button>
+            <Modal.Footer className='p-1'>
+                <Button className="btn btn-light btn-outline-secondary" onClick={props.onHide}>Thoát</Button>
             </Modal.Footer>
         </Modal>
     );
