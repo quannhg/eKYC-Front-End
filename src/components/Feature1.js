@@ -6,9 +6,10 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ProcessButton from './LoadingButton';
-import {MdOutlineChangeCircle} from 'react-icons/md'
+import { MdOutlineChangeCircle } from 'react-icons/md'
+import { MdOutlineAddBox } from 'react-icons/md'
 
-import './Home.css';
+import './Feature1.css';
 
 
 function UploadCard({ text, onFileChange }) {
@@ -35,10 +36,11 @@ function UploadCard({ text, onFileChange }) {
     };
 
     return (
-        <Card style={{ width: '450px', height: '300px', alignItems: 'center' }}>
-            <Card.Body style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Card className='d-flex justify-content-center align-items-center m-0 border border-1 border-secondary w-200 h-100'>
+            <Card.Body >
                 {(!file) && (
-                    <Button variant="primary" onClick={handleUploadClick}>
+                    <Button variant="primary" onClick={handleUploadClick} className="d-flex justify-content-center align-items-center">
+                        <MdOutlineAddBox className="ms1 me-2"/>
                         {text}
                     </Button>
                 )}
@@ -49,7 +51,6 @@ function UploadCard({ text, onFileChange }) {
                             src={file && URL.createObjectURL(file)}
                             alt="uploaded file"
                             style={{
-                                marginTop: '10px',
                                 maxWidth: '200px',
                                 maxHeight: '100%',
                             }}
@@ -78,15 +79,18 @@ function Feature1() {
     };
 
     return (
-        <div>
-            <div>
-                <FunctionNavBar />
-                <main className="main">
-                    <Container>
-                        <Row style={{ paddingBottom: '20px' }}>
-                            <h1 style={{ fontWeight: 'semiBold', fontSize: '54.69px', color: '#00ADB5', paddingTop: '0px' }}>
+        <div className="main">
+            <Container className="vh-100 vw-100 p-0 m-0">
+                <Row>
+                    <FunctionNavBar />
+                </Row>
+
+                <Row className="main p-3 m-0">
+                    <Col className="d-flex flex-column justify-content-center align-items-center p-0 m-0">
+                        <Row className='mb-5 flex-grow-1'>
+                            <h2 style={{ fontWeight: 'semiBold', fontSize: '54.69px', color: '#00ADB5', paddingTop: '0px' }}>
                                 So sánh với 1 đối tượng
-                            </h1>
+                            </h2>
                         </Row>
                         <Row>
                             <Col>
@@ -96,12 +100,12 @@ function Feature1() {
                                 <UploadCard text='Tải lên ảnh đối chiếu' onFileChange={handleFile2Change} />
                             </Col>
                         </Row>
-                        <Row>
-                            <ProcessButton file1 file2 />
+                        <Row className='mt-5 mb-0' style={{ width: '10%' }} >
+                            <ProcessButton image1={file1} image2={file2} />
                         </Row>
-                    </Container>
-                </main>
-            </div>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }
