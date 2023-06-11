@@ -5,12 +5,11 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import HomePage from './Home';
 
 export default function HomeNavBar() {
     return (
         <>
-            <Navbar style={{ backgroundColor: '#393E46' }}>
+            <Navbar style={{ backgroundColor: '#393E46', maxHeight: '5.4em', minHeight: '5.4em' }}>
                 <Container>
                     <Navbar.Brand href="https://ticklab.vn" target="_blank">
                         <img
@@ -29,9 +28,7 @@ export default function HomeNavBar() {
 
 export function FunctionNavBar() {
     return (
-        <>
-            <div>
-                <Navbar style={{ backgroundColor: '#393E46' }}>
+        <Navbar style={{ backgroundColor: '#393E46', maxHeight: '5.4em', minHeight: '5.4em'}}>
                     <Container>
                         <Navbar.Brand href="https://ticklab.vn" target="_blank">
                             <img
@@ -42,10 +39,8 @@ export function FunctionNavBar() {
                             />
 
                         </Navbar.Brand>
-                        <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF", fontSize: '17.92px' }}>HomePage</Nav.Link>
+                        <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF", fontSize: '17.92px' }}>Trang chủ</Nav.Link>
                     </Container>
                 </Navbar>
-            </div>
-        </>
     );
 }
