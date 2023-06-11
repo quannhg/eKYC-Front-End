@@ -41,18 +41,24 @@ function LoadingButton(image1, image2) {
 
   return (
     <>
-    <Button
-      variant="primary"
-      disabled={isLoading}
-      onClick={!isLoading ? handleClick : null}
-    >
-      {isLoading
-        ? "Đang xử lý…"
-        : response
-          ? `Kết quả: ${response}`
-          : "Xử lý"}
-    </Button>
-      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} image1={image1} image2={image2} /> }
+      <Button
+        variant="primary"
+        disabled={isLoading}
+        onClick={!isLoading ? handleClick : null}
+        className='border border-0'
+        style={{
+          backgroundColor: '#00ADC6',
+          minHeight: '3em',
+          minWidth: '20em'
+        }}
+      >
+        {isLoading
+          ? "Đang xử lý…"
+          : response
+            ? `Kết quả: ${response}`
+            : "Xử lý"}
+      </Button>
+      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} image1={image1} image2={image2} />}
     </>
   );
 }

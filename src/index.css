@@ -1,3 +1,7 @@
+:root {
+  --COLOR-BLUE: #00ADC6;
+}
+
 body {
   margin: 0;
   font-family: "Montserrat";

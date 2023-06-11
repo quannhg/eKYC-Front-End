@@ -36,26 +36,33 @@ function UploadCard({ text, onFileChange }) {
     };
 
     return (
-        <Card className='d-flex justify-content-center align-items-center m-0 border border-1 border-secondary w-200 h-100'>
-            <Card.Body >
+        <Card className='mx-5 mb-2 border border-1 border-dark w-400 h-100' style={{
+            minHeight: '18em',
+            minWidth: '30em',
+            borderInlineStyle: 'dashed',
+        }}>
+            <Card.Body className='d-flex justify-content-center align-items-center'>
                 {(!file) && (
-                    <Button variant="primary" onClick={handleUploadClick} className="d-flex justify-content-center align-items-center">
-                        <MdOutlineAddBox className="ms1 me-2"/>
+                    <div onClick={handleUploadClick} className="d-flex justify-content-center align-items-center fs-4" style={{
+                        color: '#00ADC6',
+                        cursor: 'pointer',
+
+                    }}>
+                        <MdOutlineAddBox className="me-2 mt-1 fs-3" />
                         {text}
-                    </Button>
+                    </div>
                 )}
                 {file && (
-                    <div>
+                    <div className="d-flex">
                         <img
                             id="image-preview"
                             src={file && URL.createObjectURL(file)}
                             alt="uploaded file"
                             style={{
-                                maxWidth: '200px',
-                                maxHeight: '100%',
+                                maxWidth: '100%',
+                                maxHeight: '17em',
                             }}
                         />
-
                         <MdOutlineChangeCircle style={{ fontSize: '30px', color: '#00ADC6' }} onClick={handleUploadClick} />
                     </div>
                 )}
@@ -79,34 +86,34 @@ function Feature1() {
     };
 
     return (
-        <div className="main">
-            <Container className="vh-100 vw-100 p-0 m-0">
-                <Row>
-                    <FunctionNavBar />
-                </Row>
+        <Container className="mw-100 p-0 m-0">
+            <Row>
+                <FunctionNavBar />
+            </Row>
 
-                <Row className="main p-3 m-0">
-                    <Col className="d-flex flex-column justify-content-center align-items-center p-0 m-0">
-                        <Row className='mb-5 flex-grow-1'>
-                            <h2 style={{ fontWeight: 'semiBold', fontSize: '54.69px', color: '#00ADB5', paddingTop: '0px' }}>
-                                So sánh với 1 đối tượng
-                            </h2>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <UploadCard text='Tải lên ảnh kiểm tra' onFileChange={handleFile1Change} />
-                            </Col>
-                            <Col>
-                                <UploadCard text='Tải lên ảnh đối chiếu' onFileChange={handleFile2Change} />
-                            </Col>
-                        </Row>
-                        <Row className='mt-5 mb-0' style={{ width: '10%' }} >
-                            <ProcessButton image1={file1} image2={file2} />
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+            <Row className="p-0 m-0" style={{
+                backgroundColor: '#1C1B1F', minHeight: 'calc(100vh - 5.4rem)'
+            }}>
+                <Col className="d-flex flex-column justify-content-center align-items-center p-0 m-0">
+                    <Row className='mb-5 w-100'>
+                        <h2 style={{ fontWeight: 'semiBold', fontSize: '54.69px', color: '#00ADB5', padding: '0rem 0 0 6.9rem' }}>
+                            So sánh với 1 đối tượng
+                        </h2>
+                    </Row>
+                    <Row className=''>
+                        <Col>
+                            <UploadCard text='Tải lên ảnh kiểm tra' onFileChange={handleFile1Change} />
+                        </Col>
+                        <Col>
+                            <UploadCard text='Tải lên ảnh đối chiếu' onFileChange={handleFile2Change} />
+                        </Col>
+                    </Row>
+                    <Row className='mt-5 mb-0'>
+                        <ProcessButton image1={file1} image2={file2} />
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
