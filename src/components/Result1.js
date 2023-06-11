@@ -9,10 +9,8 @@ import Image from 'react-bootstrap/Image';
 import { MdCheckCircleOutline } from 'react-icons/md'
 import { FaRegCommentDots } from 'react-icons/fa'
 import "./Result1.css"
-import { ModalTitle } from 'react-bootstrap';
 
 export default function Result1(props) {
-
     return (
         <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered >
             <Modal.Body className="show-grid p-0">
@@ -22,27 +20,21 @@ export default function Result1(props) {
                             <Row className="flex-grow-1 header border border-secondary w-100 rounded-start rounded-1">
                                 <Modal.Title className="d-flex justify-content-center align-items-center fs-2">Độ trùng khớp</Modal.Title>
                             </Row>
-                            <Row className="result-detail flex-grow-1 d-flex align-items-center justify-content-center">
-                                <Col xs='6'>
-                                    {
-                                        <Card >
-                                            <div class="ref-img-card">
-                                                <h4 >Ảnh kiểm tra</h4>
-                                                <Image className="image border border-secondary border-2 rounded-1 p-2 bg-white" alt="reference image" src={props.image1} />
-                                            </div>
-                                        </Card>
-                                    }
+                            <Row className="result-detail w-100 flex-grow-1 d-flex align-items-center justify-content-center">
+                                <Col className='col-5 h-100 d-flex align-items-center justify-content-center'>
+                                    <Card className='border border-0' style={{ width: '85%', height: '100%' }}>
+                                        <div className="ref-img-card">
+                                            <h4 className='' >Ảnh kiểm tra</h4>
+                                            <Image className="image border border-secondary border-2 rounded-1 p-2 bg-white" alt="reference image" src={props.image1 && URL.createObjectURL(props.image1)} />
+                                        </div>
+                                    </Card>
                                 </Col>
-                                <Col xs='6'>
-                                    <Card>
-                                        {
-                                            <Card>
-                                                <div class="query-img-card">
-                                                    <Image className="image border border-secondary border-2 rounded-1 p-2 my-3 bg-white" alt="reference image" src={props.image2} />
-                                                    <h5 style={{ color: "#36B943" }}>100%</h5>
-                                                </div>
-                                            </Card>
-                                        }
+                                <Col className='col-5 h-100 d-flex align-items-center justify-content-center'>
+                                    <Card className='border border-0' style={{width:'85%', height:'100%'}}>
+                                        <div className="query-img-card">
+                                            <Image className="image border border-secondary border-2 rounded-1 p-2 my-3 bg-white" alt="query image" src={props.image2 && URL.createObjectURL(props.image2)} />
+                                            <h5 style={{ color: "#36B943" }}>100%</h5>
+                                        </div>
                                     </Card>
                                 </Col>
                             </Row>
@@ -50,9 +42,9 @@ export default function Result1(props) {
 
                         <Col className='p-0 border border-secondary rounded-1' sm="8" md="4">
                             <div className="result-consult">
-                                <Card class="result-consult-card" className='border border-secondary border-1'>
-                                    <Card.Header className="border-0" style={{ backgroundColor: '#fff' }}>
-                                        <h4 class="sub-header">Kết quả</h4>
+                                <Card className='result-consult-cardborder border-secondary border-1'>
+                                    <Card.Header className='border border-0' style={{ backgroundColor: '#fff' }}>
+                                        <h4 className="sub-header">Kết quả</h4>
                                     </Card.Header>
                                     <MdCheckCircleOutline style={{ color: "#36B943", fontSize: "2em" }} />
                                     <Card.Text className='m-3'>
