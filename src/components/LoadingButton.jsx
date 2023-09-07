@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Result1 from './Result1';
+import Result1 from "./Result1";
 
-function LoadingButton(image1, image2) {
+function LoadingButton({image1, image2}) {
   const [isLoading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +26,6 @@ function LoadingButton(image1, image2) {
     formData.append("image1", image1);
     formData.append("image2", image2);
 
-
     setShowModal(true);
 
     // const response = await fetch("http://example.com/api", {
@@ -45,20 +44,27 @@ function LoadingButton(image1, image2) {
         variant="primary"
         disabled={isLoading}
         onClick={!isLoading ? handleClick : null}
-        className='border border-0'
+        className="border border-0"
         style={{
-          backgroundColor: '#00ADC6',
-          minHeight: '3em',
-          minWidth: '20em'
+          backgroundColor: "#00ADC6",
+          minHeight: "3em",
+          minWidth: "20em",
         }}
       >
         {isLoading
           ? "Đang xử lý…"
           : response
-            ? `Kết quả: ${response}`
-            : "Xử lý"}
+          ? `Kết quả: ${response}`
+          : "Xử lý"}
       </Button>
-      {showModal && <Result1 show={showModal} onHide={() => setShowModal(false)} image1={image1} image2={image2} />}
+      {showModal && (
+        <Result1
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          image1={image1}
+          image2={image2}
+        />
+      )}
     </>
   );
 }

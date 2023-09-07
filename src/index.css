@@ -1,15 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+
 :root {
-  --COLOR-BLUE: #00ADC6;
+  --COLOR-BLUE: #00adc6;
+}
+
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: "Montserrat";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Inter";
 }

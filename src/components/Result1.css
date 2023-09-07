@@ -1,6 +1,5 @@
 .header {
   color: #00ADC6;
-  font-size: 2rem;
 }
 
 .result-detail{
@@ -16,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   border-radius: 3%;
+  gap: 3;
 }
 
 .query-img-card {
@@ -58,16 +58,4 @@
 
 .result-consult-card > *{
   margin: 0.3em;
-}
-
-.comment-card{
-  background-color: #fff;
-}
-
-.comment-card > *{
-  margin: 0.3em;
-}
-
-.sub-header{
-  color: #00ADC6;
 }
