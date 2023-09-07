@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
-import ProcessButton from "./LoadingButton";
+import Feature1ProcessButton from "./Feature1ProcessButton";
 import { MdOutlineChangeCircle } from "react-icons/md";
 import { MdOutlineAddBox } from "react-icons/md";
 
@@ -137,7 +137,7 @@ function Feature1() {
             </Col>
           </Row>
           <Row className="mt-5 mb-0">
-            <ProcessButton image1={file1} image2={file2} />
+            <Feature1ProcessButton image1={file1} image2={file2} />
           </Row>
         </Col>
       </Row>

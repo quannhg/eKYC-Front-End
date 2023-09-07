@@ -2,22 +2,11 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Result1 from "./Result1";
 
-function LoadingButton({image1, image2}) {
+function Feature1ProcessButton({ image1, image2 }) {
   const [isLoading, setLoading] = useState(false);
-  const [response, setResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    function simulateNetworkRequest() {
-      return new Promise((resolve) => setTimeout(resolve, 100));
-    }
-
-    if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
-    }
-  }, [isLoading]);
+  const [isSame, setIsSame] = useState();
+  const [distance, setDistance] = useState();
 
   const handleClick = async () => {
     setLoading(true);
@@ -26,16 +15,28 @@ function LoadingButton({image1, image2}) {
     formData.append("image1", image1);
     formData.append("image2", image2);
 
-    setShowModal(true);
+    try {
+      //TODO: Correctly the feature 1 api url
+      const response = await fetch("http://example.com/api", {
+        method: "POST",
+        body: formData,
+      });
 
-    // const response = await fetch("http://example.com/api", {
-    //   method: "POST",
-    //   body: formData,
-    // });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-    // const data = await response.json();
-    // setResponse(data);
-    setLoading(false);
+      const data = await response.json();
+
+      const { isSame, distance } = data;
+
+      setIsSame(isSame);
+      setDistance(distance);
+    } catch (error) {
+      window.alert(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,11 +52,7 @@ function LoadingButton({image1, image2}) {
           minWidth: "20em",
         }}
       >
-        {isLoading
-          ? "Đang xử lý…"
-          : response
-          ? `Kết quả: ${response}`
-          : "Xử lý"}
+        {isLoading ? "Đang xử lý…" : "Xử lý"}
       </Button>
       {showModal && (
         <Result1
@@ -63,10 +60,12 @@ function LoadingButton({image1, image2}) {
           onHide={() => setShowModal(false)}
           image1={image1}
           image2={image2}
+          isSame={isSame}
+          distance={distance}
         />
       )}
     </>
   );
 }
 
-export default LoadingButton;
+export default Feature1ProcessButton;
