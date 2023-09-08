@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FunctionNavBar } from "./NavBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,11 +7,21 @@ import Card from "react-bootstrap/Card";
 import Feature1ProcessButton from "./Feature1ProcessButton";
 import { MdOutlineChangeCircle } from "react-icons/md";
 import { MdOutlineAddBox } from "react-icons/md";
+import useScreenWidth from "./useScreenWidth";
 
 import "./Feature1.css";
 
 function UploadCard({ text, onFileChange }) {
   const [file, setFile] = useState(null);
+
+  const screenWidth = useScreenWidth();
+
+  const [imageHeight, setImageHeight] = useState("15em");
+
+  useEffect(() => {
+    if (screenWidth < 992) setImageHeight("10em");
+    else setImageHeight("15em");
+  }, [screenWidth, setImageHeight]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -37,28 +47,19 @@ function UploadCard({ text, onFileChange }) {
   };
 
   return (
-    <Card
-      className="mx-5 mb-2 border border-1 border-dark w-400 h-100"
-      style={{
-        minHeight: "18em",
-        maxHeight: "18em",
-        minWidth: "30em",
-        maxHeight: "30em",
-        borderInlineStyle: "dashed",
-      }}
-    >
-      <Card.Body className="d-flex justify-content-center align-items-center">
+    <Card className="border border-1 border-dark w-100 h-100">
+      <Card.Body className="d-flex justify-content-center align-items-center enlarge-on-hover-parent">
         {!file && (
           <div
             onClick={handleUploadClick}
-            className="d-flex justify-content-center align-items-center fs-4"
+            className="d-flex justify-content-center align-items-center gap-2 enlarge-on-hover"
             style={{
               color: "#00ADC6",
               cursor: "pointer",
             }}
           >
-            <MdOutlineAddBox className="me-2 mt-1 fs-3" />
-            {text}
+            <MdOutlineAddBox style={{ fontSize: "1.875em" }} />
+            <div className="h5 m-0">{text}</div>
           </div>
         )}
         {file && (
@@ -68,12 +69,16 @@ function UploadCard({ text, onFileChange }) {
               src={file && URL.createObjectURL(file)}
               alt="uploaded file"
               style={{
-                maxWidth: "26em",
-                maxHeight: "15em",
+                maxWidth: "95%",
+                maxHeight: `${imageHeight}`,
               }}
             />
             <MdOutlineChangeCircle
-              style={{ fontSize: "30px", color: "#00ADC6", cursor: "pointer" }}
+              style={{
+                fontSize: "30px",
+                color: "#00ADC6",
+                cursor: "pointer",
+              }}
               onClick={handleUploadClick}
             />
           </div>
@@ -95,9 +100,18 @@ function Feature1() {
     setFile2(file);
   };
 
+  const screenWidth = useScreenWidth();
+
+  const [cardHeight, setCardHeight] = useState("18em");
+
+  useEffect(() => {
+    if (screenWidth < 992) setCardHeight("12em");
+    else setCardHeight("18em");
+  }, [screenWidth, setCardHeight]);
+
   return (
     <Container className="mw-100 p-0 m-0">
-      <Row>
+      <Row className="p-0 m-0">
         <FunctionNavBar />
       </Row>
 
@@ -105,38 +119,45 @@ function Feature1() {
         className="p-0 m-0"
         style={{
           backgroundColor: "#1C1B1F",
-          minHeight: "calc(100vh - 5.4rem)",
+          minHeight:'90vh'
         }}
       >
-        <Col className="d-flex flex-column justify-content-center align-items-center p-0 m-0">
-          <Row className="mb-5 w-100">
-            <h2
+        <Col className="d-flex flex-column justify-content-center align-items-center p-0 m-0 gap-3 gap-lg-5">
+          <Row className="w-100 mt-4 mt-lg-0 mb-0 mb-lg-3 mb-xl-4 ps-0 ps-lg-4 ps-xl-5">
+            <div
+              className="h1 p-0 ps-xl-4 m-0 text-center text-lg-start"
               style={{
-                fontFamily: "inter",
-                fontWeight: "600",
-                fontSize: "50px",
                 color: "#00ADB5",
-                padding: "0rem 0 0 6.9rem",
               }}
             >
               So sánh với 1 đối tượng
-            </h2>
+            </div>
           </Row>
-          <Row className="">
-            <Col>
+          <Row className="d-flex flex-column flex-lg-row w-100 justify-content-center align-items-center gap-3 gap-lg-5">
+            <Col
+              sm={8}
+              lg={4}
+              className="col-10 p-0 d-flex justify-content-center align-items-center"
+              style={{ height: `${cardHeight}` }}
+            >
               <UploadCard
                 text="Tải lên ảnh kiểm tra"
                 onFileChange={handleFile1Change}
               />
             </Col>
-            <Col>
+            <Col
+              sm={8}
+              lg={4}
+              className="col-10 p-0 d-flex justify-content-center align-items-center"
+              style={{ height: `${cardHeight}` }}
+            >
               <UploadCard
                 text="Tải lên ảnh đối chiếu"
                 onFileChange={handleFile2Change}
               />
             </Col>
           </Row>
-          <Row className="mt-5 mb-0">
+          <Row className="m-0">
             <Feature1ProcessButton image1={file1} image2={file2} />
           </Row>
         </Col>

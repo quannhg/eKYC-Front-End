@@ -238,12 +238,15 @@ function Feature2() {
 
   return (
     <Container style={containerStyle}>
-      <Row>
+      <Row className="p-0 m-0">
         <FunctionNavBar />
       </Row>
       <Row
         className="align-items-center"
-        style={{ flexGrow: 1, backgroundColor: "#1C1B1F" }}
+        style={{
+          minHeight: "90vh",
+          backgroundColor: "#1C1B1F",
+        }}
       >
         <Col
           xs={6}
@@ -253,9 +256,9 @@ function Feature2() {
             sm={8}
             className="d-flex flex-column gap-5 justify-content-center align-items-center"
           >
-            <Row>
+            <Row className="col-11">
               <div
-                className="h2 mb-4"
+                className="h1 mb-4"
                 style={{
                   color: "#00ADB5",
                   textAlign: "center",

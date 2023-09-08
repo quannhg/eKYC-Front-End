@@ -13,98 +13,96 @@ import "./Home.css";
 export function HomePage() {
   return (
     <Container className="p-0 m-0 mw-100">
-      <Col>
-        <Row>
-          <HomeNavBar />
-        </Row>
-        <Row className="main m-0 mw-100 d-flex justify-content-between align-items-center">
-          <Col style={{ marginLeft: "6.3rem" }} xs={5}>
-            <Row className="pb-1.5">
-              <h1
+      <Row className="p-0 m-0">
+        <HomeNavBar />
+      </Row>
+      <Row
+        className="main m-0 p-0 mw-100 d-flex justify-content-center align-items-center"
+        style={{
+          height: "90vh",
+        }}
+      >
+        <Col className="col-11 col-lg-6 col-xl-5">
+          <Row className="pb-1.5">
+            <h1
+              style={{
+                fontWeight: "semiBold",
+                fontSize: "54.69px",
+                color: "#00ADB5",
+                paddingTop: "0px",
+              }}
+            >
+              {" "}
+              Hệ thống nhận diện gương mặt
+            </h1>
+            <p
+              style={{
+                fontSize: "22.4px",
+                color: "#EEEEEE",
+                marginTop: "15px",
+              }}
+            >
+              Tải lên các bức ảnh gương mặt và xác định độ trùng khớp
+            </p>
+          </Row>
+          <Row className="col-11 d-grid gap-4 mt-5">
+            <Link
+              to="./feature1"
+              className="p-0 m-0"
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                className="border-0 m-0 d-flex align-items-center gap-0 gap-sm-2 gap-lg-3 w-100 ps-4 py-3"
                 style={{
-                  fontWeight: "semiBold",
-                  fontSize: "54.69px",
-                  color: "#00ADB5",
-                  paddingTop: "0px",
+                  backgroundColor: "#00ADC6",
+                  transition: "background-color 0.3s ease",
+                  "&:hover": { backgroundColor: "#393E46" },
                 }}
               >
-                {" "}
-                Hệ thống nhận diện gương mặt
-              </h1>
-              <p
-                style={{
-                  fontSize: "22.4px",
-                  color: "#EEEEEE",
-                  marginTop: "15px",
-                }}
-              >
-                Tải lên các bức ảnh gương mặt và xác định độ trùng khớp
-              </p>
-            </Row>
-            <Row className="sm-5 d-grid gap-2 mt-5">
-              <Link to="./feature1" className="p-0 m-0">
-                <Button
-                  size="lg"
-                  className="custom-button border-0"
+                <MdOutlineAccountCircle
                   style={{
-                    backgroundColor: "#00ADC6",
-                    transition: "background-color 0.3s ease",
-                    "&:hover": { backgroundColor: "#393E46" },
+                    fontSize: "50px",
                   }}
-                >
-                  <div
-                    className="mw-100"
-                    style={{ textAlign: "left", padding: "0px 50px" }}
-                  >
-                    <MdOutlineAccountCircle
-                      style={{
-                        marginRight: "30px",
-                        height: "50px",
-                        fontSize: "50px",
-                        marginBottom: "5px",
-                      }}
-                    />
-                    So sánh với 1 đối tượng
-                  </div>
-                </Button>
-              </Link>
-              <Link to="./feature2" className="p-0 m-0">
-                <Button
-                  size="lg"
-                  className="custom-button"
-                  style={{ backgroundColor: "#00ADC6", border: "0px" }}
-                >
-                  <div
-                    style={{
-                      width: "554.4px",
-                      textAlign: "left",
-                      padding: "0px 50px",
-                    }}
-                  >
-                    <MdOutlineGroups
-                      style={{
-                        marginRight: "30px",
-                        height: "50px",
-                        fontSize: "50px",
-                        marginBottom: "5px",
-                      }}
-                    />
-                    So sánh với nhiều đối tượng
-                  </div>
-                </Button>
-              </Link>
-            </Row>
-          </Col>
-          <Col className="m-0 p-0 d-none d-xl-block" xl={6}>
-            <Image
-              className="m-0 p-0"
-              height="455rem"
-              src="/images/facial-recognition.jpg"
-              rounded
-            />
-          </Col>
-        </Row>
-      </Col>
+                />
+                <div style={{ fontSize: "22.4px" }}>
+                  So sánh với 1 đối tượng
+                </div>
+              </Button>
+            </Link>
+            <Link
+              to="./feature2"
+              className="p-0 m-0"
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                className="border-0 m-0 d-flex align-items-center gap-0 gap-sm-2 gap-lg-3 w-100 ps-4 py-3"
+                style={{
+                  backgroundColor: "#00ADC6",
+                  transition: "background-color 0.3s ease",
+                  "&:hover": { backgroundColor: "#393E46" },
+                }}
+              >
+                <MdOutlineGroups
+                  style={{
+                    fontSize: "50px",
+                  }}
+                />
+                <div style={{ fontSize: "22.4px" }}>
+                  So sánh với nhiều đối tượng
+                </div>
+              </Button>
+            </Link>
+          </Row>
+        </Col>
+        <Col className="col-5 m-0 p-0 d-none d-lg-block">
+          <Image
+            className="m-0 p-0"
+            style={{ width: "90%", height: "90%" }}
+            src="/images/facial-recognition.jpg"
+            rounded
+          />
+        </Col>
+      </Row>
     </Container>
   );
 }
