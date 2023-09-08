@@ -113,17 +113,35 @@ function ReferentUploadCard({ text, onFileChange }) {
   );
 }
 
-function QueryUploadCard({ onFileChange }) {
+function QueryUploadCard({ addNewImage, removeQueryImage }) {
   const [file, setFile] = useState(null);
 
-  const handleFileChange = (event) => {
+  const [imageName, setImageName] = useState("");
+
+  const handleRemoveOldQueryImage = () => {
+    // console.log(`remove: ${imageName}`);
+    if (imageName) removeQueryImage(imageName);
+  };
+
+  const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
+
     if (
       selectedFile.type.split("/")[0] === "image" &&
       selectedFile.size <= 2 * 1024 * 1024
     ) {
+      // Create a unique filename with a timestamp appended
+      const timestamp = Date.now();
+      const fileName = `${selectedFile.name.substring(0, 10)}_${timestamp}`;
+
+      const newImage = {
+        name: fileName,
+        file: selectedFile,
+      };
+
       setFile(selectedFile);
-      onFileChange(selectedFile);
+      setImageName(fileName);
+      addNewImage(newImage);
     } else if (selectedFile.size > 2 * 1024 * 1024) {
       window.alert("File size exceeds 2MB limit");
     } else if (selectedFile.type.split("/")[0] !== "image") {
@@ -135,7 +153,49 @@ function QueryUploadCard({ onFileChange }) {
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
-    input.addEventListener("change", handleFileChange);
+    input.addEventListener("change", handleFileUpload);
+    input.click();
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    // console.log(selectedFile.name);
+
+    if (
+      selectedFile.type.split("/")[0] === "image" &&
+      selectedFile.size <= 2 * 1024 * 1024
+    ) {
+      // Create a unique filename with a timestamp appended
+      const timestamp = Date.now();
+      const fileName = `${selectedFile.name.substring(0, 10)}_${timestamp}`;
+
+      const newImage = {
+        name: fileName,
+        file: selectedFile,
+      };
+
+      // if (imageName != fileName) {
+      //   handleRemoveOldQueryImage();
+      // }
+      setFile(selectedFile);
+      setImageName(fileName);
+      addNewImage(newImage);
+    } else if (selectedFile.size > 2 * 1024 * 1024) {
+      window.alert("File size exceeds 2MB limit");
+    } else if (selectedFile.type.split("/")[0] !== "image") {
+      window.alert("Selected file is not an image");
+    }
+  };
+
+  const handleChangeClick = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.addEventListener("change", (event) => {
+      handleRemoveOldQueryImage();
+      handleFileChange(event);
+    });
     input.click();
   };
 
@@ -174,7 +234,7 @@ function QueryUploadCard({ onFileChange }) {
                 color: "#00ADC6",
                 cursor: "pointer",
               }}
-              onClick={handleUploadClick}
+              onClick={handleChangeClick}
             />
             <TbTrashX
               className="enlarge-on-hover"
@@ -183,7 +243,10 @@ function QueryUploadCard({ onFileChange }) {
                 color: "#EC4700",
                 cursor: "pointer",
               }}
-              onClick={() => setFile(null)}
+              onClick={() => {
+                handleRemoveOldQueryImage();
+                setFile(null);
+              }}
             />
           </div>
         </div>
@@ -192,7 +255,7 @@ function QueryUploadCard({ onFileChange }) {
   );
 }
 
-function QueryImagesUploadBox({ handleFile2Change }) {
+function QueryImagesUploadBox({ addNewImage, removeQueryImage }) {
   return (
     <div className="d-flex flex-column border border-1 border-black">
       <div
@@ -203,12 +266,24 @@ function QueryImagesUploadBox({ handleFile2Change }) {
       </div>
       <div className="d-flex flex-column justify-content-center align-item-center gap-3 bg-white p-3 border border-1 border-black border-top-0">
         <Row className="d-flex justify-content-center align-items-center gap-3">
-          <QueryUploadCard onFileChange={handleFile2Change} />
-          <QueryUploadCard onFileChange={handleFile2Change} />
+          <QueryUploadCard
+            addNewImage={addNewImage}
+            removeQueryImage={removeQueryImage}
+          />
+          <QueryUploadCard
+            addNewImage={addNewImage}
+            removeQueryImage={removeQueryImage}
+          />
         </Row>
         <Row className="d-flex justify-content-center align-items-center gap-3">
-          <QueryUploadCard onFileChange={handleFile2Change} />
-          <QueryUploadCard onFileChange={handleFile2Change} />
+          <QueryUploadCard
+            addNewImage={addNewImage}
+            removeQueryImage={removeQueryImage}
+          />
+          <QueryUploadCard
+            addNewImage={addNewImage}
+            removeQueryImage={removeQueryImage}
+          />
         </Row>
       </div>
     </div>
@@ -216,15 +291,27 @@ function QueryImagesUploadBox({ handleFile2Change }) {
 }
 
 function Feature2() {
-  const [file1, setFile1] = useState(null);
-  const [file2, setFile2] = useState(null);
+  const [referenceImage, setReferenceImage] = useState(null);
+  const [queryImages, setQueryImages] = useState([]);
 
   const handleReferenceImageChange = (file) => {
-    setFile1(file);
+    setReferenceImage(file);
   };
 
-  const handleQueryImageChange = (file) => {
-    setFile2(file);
+  const handleAddQueryImage = (image) => {
+    setQueryImages([...queryImages, image]);
+  };
+
+  const handleRemoveQueryImage = (imageNameToRemove) => {
+    if (!queryImages) {
+      return;
+    }
+
+    const updatedQueryImages = queryImages.filter(
+      (image) => image.name !== imageNameToRemove
+    );
+
+    setQueryImages(updatedQueryImages);
   };
 
   const containerStyle = {
@@ -272,12 +359,18 @@ function Feature2() {
                 text="Ảnh kiểm tra"
                 onFileChange={handleReferenceImageChange}
               />
-              <Feature2ProcessButton image1={file1} image2={file2} />
+              <Feature2ProcessButton
+                referenceImage={referenceImage}
+                queryImages={queryImages}
+              />
             </Row>
           </Col>
         </Col>
         <Col xs={6} xl={5} className="p-0">
-          <QueryImagesUploadBox handleFile2Change={handleQueryImageChange} />
+          <QueryImagesUploadBox
+            addNewImage={handleAddQueryImage}
+            removeQueryImage={handleRemoveQueryImage}
+          />
         </Col>
       </Row>
     </Container>
