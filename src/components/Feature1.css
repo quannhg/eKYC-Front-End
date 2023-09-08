@@ -1,3 +1,12 @@
 .main {
-    width: 100%;
+  width: 100%;
+}
+.enlarge-on-hover:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+.enlarge-on-hover-parent:hover .enlarge-on-hover {
+  font-size: scale(1.05);
+  transition: font-size 0.2s;
 }

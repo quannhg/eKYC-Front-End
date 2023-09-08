@@ -166,7 +166,7 @@ export default function Result1(props) {
                         fontSize: "1.8em",
                       }}
                     />
-                    <div className="p">Đúng</div>
+                    <div className="">Đúng</div>
                   </div>
 
                   <div
@@ -179,7 +179,7 @@ export default function Result1(props) {
                         fontSize: "1.8em",
                       }}
                     />
-                    <div className="p">Sai</div>
+                    <div className="">Sai</div>
                   </div>
                 </div>
               </Card>
