@@ -30,23 +30,56 @@ const ImageComponent = ({ image }) => {
   return null;
 };
 
-export default function Result1(props) {
-  function getColor(distance) {
-    if (typeof distance !== "number") {
-      return "#EC4700"; // Default color for non-numeric values
-    } else if (distance > 0.75) {
-      return "#36B943"; // Green color for distance > 0.75
-    } else if (distance > 0.5) {
-      return "#F4DB00"; // Yellow color for distance > 0.5
-    } else if (distance > 0.25) {
-      return "#FF8A00"; // Orange color for distance > 0.25
+function ResultConclusion({ faceDetected, isSame }) {
+  if (faceDetected) {
+    if (isSame) {
+      return <Card.Text className="mt-3">2 ảnh là cùng một người</Card.Text>;
     } else {
-      return "#EC4700"; // Default color for all other cases
+      return <Card.Text className="mt-3">2 ảnh không là một người</Card.Text>;
+    }
+  } else {
+    return <Card.Text className="mt-3">Không phát hiện gương mặt</Card.Text>;
+  }
+}
+
+export default function Result1(props) {
+  function roundToFourDecimalPlaces(number) {
+    if (isNaN(number) || typeof number !== "number") {
+      return NaN;
+    }
+    return parseFloat(number.toFixed(4));
+  }
+
+  function DistanceHandler({ isSame, faceDetected, distance }) {
+    if (isSame) {
+      return "Cùng một người";
+    } else if (faceDetected === "success") {
+      const distancePercentage =
+        roundToFourDecimalPlaces(Number(distance)) * 100;
+      return `${distancePercentage}%`;
+    } else {
+      return "Ảnh không phải là người";
+    }
+  }
+
+  function getColor(distance, faceDetected, isSame) {
+    if (isSame) return "#36B943";
+    if (!faceDetected) {
+      return "#EC4700";
+    } else if (distance > 0.75) {
+      return "#36B943";
+    } else if (distance > 0.5) {
+      return "#F4DB00";
+    } else if (distance > 0.25) {
+      return "#FF8A00";
+    } else {
+      return "#EC4700";
     }
   }
   return (
     <Modal
-      {...props}
+      show={props.show}
+      onHide={props.onHide}
       size="xl"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -74,9 +107,10 @@ export default function Result1(props) {
                 className="d-flex align-items-center justify-content-center"
               >
                 <Card className="border border-0">
-                  <div className="h4 ref-img-card d-flex flex-column gap-2">
+                  <div className="h4 ref-img-card d-flex flex-column justify-content-center align-items-center gap-2">
                     <div>Ảnh kiểm tra</div>
                     <div
+                      className="d-flex justify-content-center align-items-center"
                       style={{
                         height: "14em",
                         width: "11em",
@@ -95,6 +129,7 @@ export default function Result1(props) {
                 <Card className="border border-0" style={{ width: "85%" }}>
                   <div className="query-img-card d-flex flex-column gap-2">
                     <div
+                      className="d-flex justify-content-center align-items-center"
                       style={{
                         height: "20em",
                         width: "16em",
@@ -104,10 +139,19 @@ export default function Result1(props) {
                     </div>
                     <div
                       className="h5"
-                      style={{ color: getColor(props.distance) }}
+                      style={{
+                        color: getColor(
+                          Number(props.distance),
+                          props.faceDetected === "success",
+                          props.isSame
+                        ),
+                      }}
                     >
-                      {props.distance ? props.distance * 100 : "The image is not human"}
-                      {typeof props.distance === "number" ? "%" : ""}
+                      <DistanceHandler
+                        distance={props.distance}
+                        isSame={props.isSame}
+                        faceDetected={props.faceDetected}
+                      />
                     </div>
                   </div>
                 </Card>
@@ -126,7 +170,7 @@ export default function Result1(props) {
                     Kết quả
                   </div>
                 </Card.Header>
-                {props.isSame ? (
+                {props.faceDetected === "success" && props.isSame ? (
                   <MdCheckCircleOutline
                     style={{ color: "#36B943", fontSize: "2em" }}
                   />
@@ -136,15 +180,10 @@ export default function Result1(props) {
                   />
                 )}
 
-                {props.isSame ? (
-                  <Card.Text className="mt-3">
-                    2 ảnh là cùng một người
-                  </Card.Text>
-                ) : (
-                  <Card.Text className="mt-3">
-                    2 ảnh không là một người
-                  </Card.Text>
-                )}
+                <ResultConclusion
+                  faceDetected={props.faceDetected === "success" ? true : false}
+                  isSame={props.isSame ? true : false}
+                />
               </Card>
 
               <Card className="border border-secondary border-1 d-flex flex-column gap-4">
