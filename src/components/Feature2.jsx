@@ -224,8 +224,11 @@ function QueryUploadCard({ addNewImage, removeQueryImage }) {
           />
         </div>
       ) : (
-        <div className="d-flex">
-          <ImageComponent image={file} />
+        <div className="h-100 d-flex justify-content-center">
+          <div className="h-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+            <ImageComponent image={file} />
+          </div>
+
           <div className="d-flex flex-column gap-1">
             <MdOutlineChangeCircle
               className="enlarge-on-hover"

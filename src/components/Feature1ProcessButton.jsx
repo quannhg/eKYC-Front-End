@@ -17,25 +17,22 @@ function Feature1ProcessButton({ image1, image2 }) {
 
     try {
       //TODO: Correctly the feature 1 api url
-      const response = await fetch("http://example.com/api", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      const { isSame, distance } = data;
-
-      setIsSame(isSame);
-      setDistance(distance);
+      // const response = await fetch("http://example.com/api", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+      // const data = await response.json();
+      // const { isSame, distance } = data;
+      // setIsSame(isSame);
+      // setDistance(distance);
     } catch (error) {
       window.alert(error);
     } finally {
       setLoading(false);
+      setShowModal(true);
     }
   };
 

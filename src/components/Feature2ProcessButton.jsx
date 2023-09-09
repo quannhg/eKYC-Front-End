@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Result1 from "./Result1";
+import Result2 from "./Result2";
 
-function Feature2ProcessButton({ image1, image2 }) {
+function Feature2ProcessButton({ referenceImage, queryImages }) {
   const [isLoading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isSame, setIsSame] = useState();
@@ -10,32 +10,30 @@ function Feature2ProcessButton({ image1, image2 }) {
 
   const handleClick = async () => {
     setLoading(true);
+    console.log(referenceImage, queryImages);
 
     const formData = new FormData();
-    formData.append("image1", image1);
-    formData.append("image2", image2);
+    formData.append("referenceImage", referenceImage);
+    formData.append("queryImages", queryImages);
 
     try {
-      //TODO: Correctly the feature 1 api url
-      const response = await fetch("http://example.com/api", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      const { isSame, distance } = data;
-
-      setIsSame(isSame);
-      setDistance(distance);
+      //TODO: Correctly the feature 2 api url
+      // const response = await fetch("http://example.com/api", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+      // const data = await response.json();
+      // const { isSame, distance } = data;
+      // setIsSame(isSame);
+      // setDistance(distance);
     } catch (error) {
       window.alert(error);
     } finally {
       setLoading(false);
+      setShowModal(true);
     }
   };
 
@@ -49,19 +47,18 @@ function Feature2ProcessButton({ image1, image2 }) {
         style={{
           backgroundColor: "#00ADC6",
           minHeight: "3em",
-          width:"fit-content"
+          width: "fit-content",
         }}
       >
         {isLoading ? "Đang xử lý…" : "Xử lý"}
       </Button>
       {showModal && (
-        <Result1
+        <Result2
           show={showModal}
           onHide={() => setShowModal(false)}
-          image1={image1}
-          image2={image2}
-          isSame={isSame}
-          distance={distance}
+          referenceImage={referenceImage}
+          queryImages={queryImages}
+          compareResult={"TODO: implement compare result"}
         />
       )}
     </>
